@@ -1,3 +1,3 @@
 # Web-based_API
 
-![](/structure_reddit.png)
+![](assets/structure_reddit.png)
