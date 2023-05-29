@@ -1,0 +1,50 @@
+### This is a pipeline to run multiple container
+
+services:
+  # mongo container
+  mongodb:
+    image: mongo                       #build image from the pre-built image on dockerhub
+    ports:
+    - 27017:27017                      #local port : container port
+    
+  #reddit container
+  reddit_collector:
+    build:  reddit_collector/         #dockerfile folder
+    volumes:  
+      - ./reddit_collector/:/app       #container path
+    depends_on:                        # connexion between containers
+      - mongodb
+
+##etl container
+  etl_job:
+    build: etl_job/
+    volumes:
+      - ./etl_job/:/app
+    depends_on:
+      - mongodb
+      - postgresdb
+
+  # postgres container
+  postgresdb:
+    image: postgres
+    ports:
+      - 5555:5432
+    environment:
+      - POSTGRES_USER=docker_user
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=reddit          #mongo database created in get_reddit.py
+
+  #slackbot container
+  slackbot:
+    build: slackbot/
+    volumes:
+      - ./slackbot/:/app
+    depends_on:
+      - postgresdb
+    environment:
+      - POSTGRES_USER=docker_user
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=reddit 
+ 
+    #in etl.py:configs:
+    #pg = create_engine('postgressql://docker_user:12345@postgresdb:5432/reddit', echo=True)
