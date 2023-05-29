@@ -1,3 +1,3 @@
 # Web-based_API
 
-![](assets/structure_reddit.png)
+![](assets/structure_reddit.svg)
