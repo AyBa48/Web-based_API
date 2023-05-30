@@ -1,6 +1,5 @@
 # Web-based_API
 
-<<<<<<< HEAD
 
 ![](/structure_reddit.svg)
 
@@ -15,7 +14,4 @@
 ### - Update posts and Sentiment to Slack through Slackbot
 
 ## All jobs are running on Docker Containers
-#### > + Make it possible to deploy online
-=======
-## SEE "branch" "master" for the detail of the project
->>>>>>> 1383a7fe5ae71f39e2d1d762a26b3c1ac5a2313c
+#### > + Make it possible to deploy onlin
